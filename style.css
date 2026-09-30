@@ -1,0 +1,716 @@
+/*
+ - Lucas Klopp
+ - Assignment 3 - Portfolio Website Development (CSS Grid)
+ - file: style.css
+ - Professor Ratul Mazumder
+
+File Contents:
+    1. variables
+    2. page basics
+    3. header and navigation
+    4. rows and columns
+    5. Row 1: About Me, Skills
+    6. Row 2: Education, Hobbies, Experience
+    7. Row 3: Blog, Projects, Community Service
+    8. footer: Contact
+    9. small screens (under 500px)
+
+Layout notes:
+ - every column layout is built with CSS Grid (no floats)
+ - desktop: page is 1200px wide, three 400px columns, rows 345px tall
+ - under 500px: everything stacks into one column and the menu
+   becomes a hamburger button
+*/
+
+/*
+-------------------variables--------------------
+*/
+:root{
+    --main-radius: 5px;
+    --main-padding: 30px;
+    --navy: #12355B;
+    --gold: #D9A21B;
+    --white: #ffffff;
+    --page-gray: #F5F7FA;
+    --line-gray: #D5DBE3;
+    --text-dark: #1F2933;
+}
+
+
+/*
+-------------------page basics--------------------
+*/
+
+/*
+ - gray page background outside of 1200px page
+ - default font and text color
+*/
+body{
+    margin: 0;
+    padding: 30px 0;
+    background: var(--page-gray);
+    font-family: Verdana, Tahoma, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-dark);
+}
+
+/*
+ - holds the whole page, 1200px
+ - grid with three rows: header, main, footer
+ - draws the top and left lines of the page
+    - individual sections draw bottom and right
+*/
+.wrapper{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    width: 1200px;
+    margin: 0 auto;
+    background: var(--white);
+    border-top: 1px solid var(--line-gray);
+    border-left: 1px solid var(--line-gray);
+}
+
+/* removes default spacing */
+h1, h2, h3, p, ul, figure{
+    margin: 0;
+    padding: 0;
+}
+
+/* clears list styles */
+ul{
+    list-style: none;
+}
+
+/* section heading with a gold bar detail */
+h2{
+    height: 26px;
+    margin-bottom: 22px;
+    padding-left: 12px;
+    border-left: 4px solid var(--gold);
+    font-size: 21px;
+    line-height: 26px;
+    color: var(--navy);
+}
+
+/* secondary heading for inside sections */
+h3{
+    font-size: 15px;
+    color: var(--navy);
+}
+
+/* default paragraph size */
+p{
+    font-size: 14px;
+}
+
+/* photo cropped to fill box instead of squeezing */
+img{
+    object-fit: cover;
+}
+
+
+/*
+-------------------header and navigation--------------------
+*/
+
+/*
+ - navy bar on top
+ - two grid columns: my name on the left, menu on the right
+*/
+header{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    height: 70px;
+    padding: 0 var(--main-padding);
+    background: var(--navy);
+    line-height: 70px;
+}
+
+/* my name top left */
+header h1{
+    font-size: 24px;
+}
+
+/* every link in the header is white with no underline */
+header a{
+    color: var(--white);
+    text-decoration: none;
+}
+
+/* hamburger button, hidden on desktop */
+.icon{
+    display: none;
+}
+
+/* menu on the right side of the header */
+nav{
+    justify-self: end;
+}
+
+/* menu items in one row, 24px apart */
+nav ul{
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 24px;
+}
+
+/* menu item text */
+nav li{
+    font-size: 14px;
+}
+
+/* gold line under each menu item */
+nav a{
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--gold);
+}
+
+
+/*
+-------------------rows and columns--------------------
+*/
+
+/* one row = three 400px grid columns */
+.row{
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+}
+
+/*
+ - one column fills its 400px grid cell
+ - 339px inside: 400 - 30 - 30 padding - 1 border
+ - 345px tall: 284 + 30 + 30 padding + 1 border
+ - overflow hidden keeps content inside the box
+*/
+section{
+    height: 284px;
+    padding: var(--main-padding);
+    border-right: 1px solid var(--line-gray);
+    border-bottom: 1px solid var(--line-gray);
+    overflow: hidden;
+}
+
+/* About Me spans two grid columns, 800px */
+#about{
+    grid-column: span 2;
+}
+
+
+/*
+-------------------Row 1: About Me--------------------
+*/
+
+/*
+ - grid: photo column 165px, text column 544px, 30px gap
+ - heading spans both columns
+*/
+#about{
+    display: grid;
+    grid-template-columns: 165px 544px;
+    column-gap: 30px;
+}
+
+/* heading across the top of both columns */
+#about h2{
+    grid-column: 1 / -1;
+}
+
+/* profile photo on the left */
+.profile-photo{
+    width: 165px;
+    height: 220px;
+    border-radius: var(--main-radius);
+}
+
+/* slightly bigger paragraphs with a gap between them */
+.about-text p{
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/*
+-------------------Row 1: Skills, Languages, and Tools--------------------
+*/
+
+/* smaller heading so the long title fits on one line */
+#skills h2{
+    font-size: 19px;
+}
+
+/* group name above each row of tags */
+#skills h3{
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/*
+ - one row of tags, indented under the group name
+ - grid: six 44px columns (42 + 2 border), 8px apart
+*/
+.tag-list{
+    display: grid;
+    grid-template-columns: repeat(6, 44px);
+    column-gap: 8px;
+    margin-left: 14px;
+    margin-bottom: 29px;
+}
+
+/* single tag, small box with a rounded navy outline */
+.tag-list li{
+    height: 22px;
+    border: 1px solid var(--navy);
+    border-radius: var(--main-radius);
+    font-size: 11px;
+    line-height: 22px;
+    text-align: center;
+    color: var(--navy);
+}
+
+
+/*
+-------------------Row 2: Education--------------------
+*/
+
+/* bigger gap under the heading to match the gap between entries */
+#education h2{
+    margin-bottom: 42px;
+}
+
+/*
+ - one entry, shared by Education and Experience
+ - grid columns: dot 22px, image 94px, text takes the rest
+ - two rows: title on top, description underneath
+*/
+.entry-list li{
+    display: grid;
+    grid-template-columns: 22px 94px 1fr;
+    margin-bottom: 42px;
+}
+
+/*
+ - gold bullet point in front of each entry
+ - spans both rows and centers itself on the entry
+*/
+.dot{
+    grid-row: 1 / 3;
+    align-self: center;
+    width: 12px;
+    height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+/* school image, spans both rows */
+.entry-list img{
+    grid-row: 1 / 3;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--main-radius);
+}
+
+/* entry text sits in the third column */
+.entry-list h3, .entry-list p{
+    grid-column: 3;
+}
+
+/* entry title */
+.entry-list h3{
+    margin-bottom: 4px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/* entry description */
+.entry-list p{
+    font-size: 12px;
+    line-height: 18px;
+}
+
+
+/*
+-------------------Row 2: Hobbies--------------------
+*/
+
+/*
+ - grid: three 113px columns, so six hobbies make two rows
+ - 20px between the two rows
+*/
+#hobbies{
+    display: grid;
+    grid-template-columns: repeat(3, 113px);
+    row-gap: 20px;
+    align-content: start;
+}
+
+/* heading across the top of all three columns */
+#hobbies h2{
+    grid-column: 1 / -1;
+}
+
+/* one hobby, image and caption centered */
+figure{
+    text-align: center;
+}
+
+/* hobby image centered in its figure */
+figure img{
+    display: block;
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 8px auto;
+    border-radius: var(--main-radius);
+}
+
+/* bold caption under each image */
+figcaption{
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    color: var(--navy);
+}
+
+
+/*
+-------------------Row 2: Experience--------------------
+*/
+
+/*
+ - no image, so only two columns: dot 20px, text takes the rest
+ - smaller gap since there are three entries
+*/
+#experience li{
+    grid-template-columns: 20px 1fr;
+    margin-bottom: 24px;
+}
+
+/* moves the dot slightly left */
+#experience .dot{
+    margin-left: -6px;
+}
+
+/* entry text sits in the second column */
+#experience h3, #experience p{
+    grid-column: 2;
+}
+
+
+/*
+-------------------Row 3: Blog--------------------
+*/
+
+/* grid: image column 140px, text column 179px, 20px gap */
+#blog article{
+    display: grid;
+    grid-template-columns: 140px 179px;
+    column-gap: 20px;
+}
+
+/* blog image on the left */
+#blog img{
+    width: 140px;
+    height: 180px;
+    border-radius: var(--main-radius);
+}
+
+/* same spacing for the blog title and paragraphs */
+.blog-text h3, .blog-text p{
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+/* title slightly bigger than the paragraphs */
+.blog-text h3{
+    font-size: 15px;
+}
+
+
+/*
+-------------------Row 3: Projects--------------------
+*/
+
+/*
+ - grid: two 120px columns with a 49px gap, centered
+ - heading spans both columns
+*/
+#projects{
+    display: grid;
+    grid-template-columns: 120px 120px;
+    column-gap: 49px;
+    justify-content: center;
+    align-content: start;
+}
+
+/* heading across the top of both columns */
+#projects h2{
+    grid-column: 1 / -1;
+}
+
+/* one project, everything inside is centered */
+#projects article{
+    text-align: center;
+}
+
+/* project image centered in its column */
+#projects img{
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 12px auto;
+    border-radius: var(--main-radius);
+}
+
+/* project title, wraps onto two lines */
+#projects h3{
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/*
+ - tag list: grid of two 52px columns (50 + 2 border)
+ - four tags make a 2 x 2 grid, 12px between rows, 8px between columns
+*/
+.project-tags{
+    display: grid;
+    grid-template-columns: 52px 52px;
+    gap: 12px 8px;
+    justify-content: center;
+}
+
+/* single tag, same look as the Skills tags */
+.project-tags li{
+    height: 22px;
+    border: 1px solid var(--navy);
+    border-radius: var(--main-radius);
+    font-size: 11px;
+    line-height: 22px;
+    text-align: center;
+    color: var(--navy);
+}
+
+
+/*
+-------------------Row 3: Community Service--------------------
+*/
+
+/* grid: three 100px photo columns, 12px apart */
+.service-photos{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    column-gap: 12px;
+    margin-bottom: 14px;
+}
+
+/* one photo */
+.service-photos img{
+    width: 100px;
+    height: 100px;
+    border-radius: var(--main-radius);
+}
+
+/* text under the photos */
+#service p{
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+
+/*
+-------------------footer: Contact--------------------
+*/
+
+/*
+ - navy bar on bottom
+ - grid: "Contact" column 223px, links take the rest
+*/
+footer{
+    display: grid;
+    grid-template-columns: 223px 1fr;
+    height: 89px;
+    padding: 0 var(--main-padding);
+    background: var(--navy);
+    border-right: 1px solid var(--navy);
+    border-bottom: 1px solid var(--navy);
+    line-height: 89px;
+}
+
+/*
+ - "Contact" on the left in white
+ - turns off the gold bar other headings have
+*/
+footer h2{
+    height: 89px;
+    margin-bottom: 0;
+    line-height: 89px;
+    color: var(--white);
+    border-left: none;
+    padding-left: 0;
+}
+
+/* three equal 300px slots for the links */
+footer ul{
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+}
+
+/* link centered in its slot */
+footer li{
+    text-align: center;
+}
+
+/* oval gold outline around each link */
+footer a{
+    padding: 10px 26px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    color: var(--white);
+    text-decoration: none;
+}
+
+
+/*
+-------------------small screens (under 500px)--------------------
+*/
+
+/*
+ - every rule in here only applies when the screen is narrower than 500px
+ - the page becomes one column, boxes grow to fit their content
+ - the menu hides behind a hamburger button
+*/
+@media (max-width: 500px){
+
+    /* less space above and below the page */
+    body{
+        padding: 15px 0;
+    }
+
+    /* page fills the screen width */
+    .wrapper{
+        width: auto;
+        margin: 0;
+    }
+
+    /*
+     - header grows to fit
+     - two columns: name on the left, hamburger on the right
+     - the menu drops underneath them
+    */
+    header{
+        grid-template-columns: 1fr auto;
+        height: auto;
+        padding: 0 20px;
+    }
+
+    /* hamburger button shows up, top right */
+    .icon{
+        display: block;
+        font-size: 26px;
+    }
+
+    /* menu is hidden until the button is tapped */
+    nav{
+        display: none;
+        grid-column: 1 / -1;
+        justify-self: stretch;
+        padding-bottom: 12px;
+    }
+
+    /* the script adds this class to open the menu */
+    nav.responsive{
+        display: block;
+    }
+
+    /* menu items stack in one column */
+    nav ul{
+        grid-auto-flow: row;
+        row-gap: 0;
+    }
+
+    /* each item gets its own line */
+    nav li{
+        line-height: 44px;
+    }
+
+    /* every row becomes one column */
+    .row{
+        grid-template-columns: 1fr;
+    }
+
+    /* boxes grow with their content, less padding */
+    section{
+        height: auto;
+        padding: 20px;
+    }
+
+    /* About Me is no longer two columns wide */
+    #about{
+        grid-column: auto;
+        grid-template-columns: 1fr;
+        row-gap: 16px;
+    }
+
+    /* profile photo centered above the text */
+    .profile-photo{
+        justify-self: center;
+    }
+
+    /* tags fit as many per row as the screen allows */
+    .tag-list{
+        grid-template-columns: repeat(auto-fill, 44px);
+        row-gap: 8px;
+    }
+
+    /* hobbies: three equal columns that shrink with the screen */
+    #hobbies{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* blog image stacks above the text */
+    #blog article{
+        grid-template-columns: 1fr;
+        row-gap: 14px;
+    }
+
+    /* blog image centered */
+    #blog img{
+        justify-self: center;
+    }
+
+    /* service photos: three equal columns that shrink with the screen */
+    .service-photos{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* photos fill their narrower columns */
+    .service-photos img{
+        width: 100%;
+        height: 90px;
+    }
+
+    /* footer becomes one column with the links stacked */
+    footer{
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 20px;
+        line-height: 1.55;
+    }
+
+    /* "Contact" centered on top */
+    footer h2{
+        height: auto;
+        margin-bottom: 8px;
+        line-height: 26px;
+        text-align: center;
+    }
+
+    /* one link per row with room for the ovals */
+    footer ul{
+        grid-template-columns: 1fr;
+        row-gap: 14px;
+        line-height: 44px;
+    }
+}
